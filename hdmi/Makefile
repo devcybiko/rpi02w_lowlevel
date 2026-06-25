@@ -16,10 +16,10 @@ else
 	LDFLAGS = -L$(PYTHON_LIBDIR) $(PYTHON_LIBRARY)
 endif
 
-_clib.so: hdmi.c
-	$(CC) $(CFLAGS) -o _clib.so hdmi.c $(LDFLAGS)
+_hdmi.so: hdmi.c
+	$(CC) $(CFLAGS) -o _hdmi.so hdmi.c $(LDFLAGS)
 
 clean:
-	rm -f _clib.so *.o
+	rm -f _hdmi.so *.o
 
 .PHONY: clean

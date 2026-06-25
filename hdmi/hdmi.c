@@ -83,21 +83,21 @@ static PyObject* rgb_to_rgb16(PyObject* self, PyObject* args) {
     return result;
 }
 
-static PyMethodDef clib_methods[] = {
+static PyMethodDef hdmi_methods[] = {
     {"rgba_to_rgb16", rgba_to_rgb16, METH_VARARGS, "Convert RGBA to RGB565"},
     {"rgb_to_rgb16", rgb_to_rgb16, METH_VARARGS, "Convert RGB to RGB565"},
     {NULL, NULL, 0, NULL}
 };
 
-static struct PyModuleDef clib_module = {
+static struct PyModuleDef hdmi_module = {
     PyModuleDef_HEAD_INIT,
-    "_clib",
+    "_hdmi",
     "C library for image conversion",
     -1,
-    clib_methods
+    hdmi_methods
 };
 
 // This is the required function name for Python 3
-PyMODINIT_FUNC PyInit__clib(void) {
-    return PyModule_Create(&clib_module);
+PyMODINIT_FUNC PyInit__hdmi(void) {
+    return PyModule_Create(&hdmi_module);
 }
