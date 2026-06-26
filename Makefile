@@ -1,30 +1,37 @@
-.PHONY: build clean install install-dev test help
+.PHONY: build clean install install-dev test venv help
 
 help:
 	@echo "Available targets:"
+	@echo "  make venv        - Create virtual environment (required on RPi)"
 	@echo "  make build       - Build distribution packages (wheel + source)"
 	@echo "  make install     - Install package locally"
 	@echo "  make install-dev - Install in editable mode (development)"
 	@echo "  make test        - Test the installation"
 	@echo "  make clean       - Remove build artifacts"
 
+venv:
+	@echo "Creating virtual environment..."
+	python3 -m venv .venv
+	. .venv/bin/activate && pip install --upgrade pip build
+	@echo "✓ Virtual environment created. Activate with: source .venv/bin/activate"
+
 build:
 	@echo "Building distribution packages..."
-	python -m pip install --upgrade build
-	python -m build
+	. .venv/bin/activate && python -m pip install --upgrade build
+	. .venv/bin/activate && python -m build
 	@echo "✓ Build complete. Packages in dist/"
 
 install:
 	@echo "Installing package..."
-	pip install .
+	. .venv/bin/activate && pip install .
 
 install-dev:
 	@echo "Installing in editable mode..."
-	pip install -e .
+	. .venv/bin/activate && pip install -e .
 
 test:
 	@echo "Testing installation..."
-	python -c "from drfrancintosh import hdmi; print('✓ Import successful'); print(f'  - rgba_to_rgb16: {hdmi.rgba_to_rgb16}'); print(f'  - rgb_to_rgb16: {hdmi.rgb_to_rgb16}')"
+	. .venv/bin/activate && python -c "from drfrancintosh import hdmi; print('✓ Import successful'); print(f'  - rgba_to_rgb16: {hdmi.rgba_to_rgb16}'); print(f'  - rgb_to_rgb16: {hdmi.rgb_to_rgb16}')"
 
 clean:
 	@echo "Cleaning build artifacts..."
